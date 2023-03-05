@@ -3,29 +3,41 @@
     "version": "1.0.0",
     "description": "Created by Edward Wang",
     "manifest_version": 3,
-    "action":{
-        "default_popup": "index.html"
-    },
-
-    "permissions": [
-        "tabs",
-        "webNavigation",
-        "https://www.linkedin.com/"
-    ],
-
-    "background": {
-        "service": [
-            "extension.js"
-        ]
+    "browser_action": {
+      "default_popup": "popup.html"
     },
 
     "icons": {
-         "16": "16.png",
-           "48": "48.png",
-          "128": "128.png"
+      "16": "16.png",
+      "48": "48.png",
+      "128": "128.png"
     },
 
-    "browser_action": {
-        "default_popup": "popup.html"
-      }
+    "host_permissions": [
+      "https://www.linkedin.com/"
+    ],
+    "permissions": [
+      "scripting",
+      "tabs",
+      "webNavigation"
+    ],
+    "background": {
+      "service_worker": "background.js",
+      "type": "module"
+    },
+    "content_scripts": [
+      { 
+        "matches": ["https://www.linkedin.com/*"], "js": ["contentScript.js"] 
+        }
+      ],
+    "web_accessible_resources": [
+      {
+        "resources": [
+          "css/*",
+          "images/*",
+          "js/*"
+        ],
+        "matches": ["https://www.linkedin.com/*"]
+  }
+]
 }
