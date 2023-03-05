@@ -1,7 +1,11 @@
+/* console.log("background.js is running")
 chrome.webNavigation.onCommitted.addListener(function (tab) {
     // Prevents script from running when other frames load
     if (tab.frameId == 0) {
         chrome.tabs.query({ active: true, lastFocusedWindow: true }, tabs => {
+            if (!tabs || tabs.length === 0) {
+                return;
+            }
 
             // Get the URL of the webpage
             let url = tabs[0].url;
@@ -29,12 +33,25 @@ chrome.webNavigation.onCommitted.addListener(function (tab) {
         });
     }
 });
-
+console.log("test2");
 
 function runLinkedinScript() {
+    console.log("Running LinkedIn script...");
+  chrome.tabs.executeScript({
+    file: "removeAds.js",
+  });
     // Inject script from file into the webpage
     chrome.tabs.executeScript({
         file: 'linkedin.js'
     });
     return true;
-}
+}*/
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.message === 'removeLinkedInAds') {
+    console.log('Removing LinkedIn Ads...');
+    chrome.tabs.executeScript({
+      file: 'linkedin.js',
+    });
+  }
+});
