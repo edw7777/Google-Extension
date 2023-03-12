@@ -1,8 +1,5 @@
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.message === 'removeLinkedInAds') {
-    console.log('Removing LinkedIn Ads...');
-    chrome.tabs.executeScript({
-      file: 'linkedin.js',
-    });
+chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+  if (changeInfo.status === 'complete' && tab.url.includes('linkedin.com/feed/')) {
+    chrome.tabs.executeScript(tabId, {file: 'linkedin.js'});
   }
 });
