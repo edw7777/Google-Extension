@@ -1,43 +1,18 @@
 {
-    "name": "Google Extension",
-    "version": "1.0.0",
-    "description": "Created by Edward Wang",
-    "manifest_version": 3,
-    "browser_action": {
-      "default_popup": "popup.html"
-    },
-
-    "icons": {
-      "16": "16.png",
-      "48": "48.png",
-      "128": "128.png"
-    },
-
-    "host_permissions": [
-      "https://www.linkedin.com/"
-    ],
-    "permissions": [
-      "scripting",
-      "tabs",
-      "webNavigation"
-    ],
-    "background": {
-      "service_worker": "background.js",
-      "type": "module"
-    },
-    "content_scripts": [
-      { 
-        "matches": ["https://www.linkedin.com/*"], "js": ["contentScript.js"] 
-        }
-      ],
-    "web_accessible_resources": [
-      {
-        "resources": [
-          "css/*",
-          "images/*",
-          "js/*"
-        ],
-        "matches": ["https://www.linkedin.com/*"]
-  }
-]
+  "name": "LinkedIn Promoted Post Blocker",
+  "version": "1.0",
+  "description": "Blocks promoted LinkedIn posts in the LinkedIn feed.",
+  "manifest_version": 2,
+  "permissions": [
+    "tabs",
+    "<all_urls>"
+  ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "content_scripts": [{
+    "matches": ["https://www.linkedin.com/*"],
+    "js": ["contentscript.js"]
+  }]
 }
